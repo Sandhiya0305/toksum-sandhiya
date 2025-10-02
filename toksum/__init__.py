@@ -18,7 +18,7 @@ Usage:
 
 from .core import TokenCounter, count_tokens, get_supported_models, estimate_cost
 from .exceptions import UnsupportedModelError, TokenizationError
-from .chunker import SmartChunker
+from .core import SmartChunker
 
 __version__ = "1.0.1"
 __author__ = "Raja CSP Raman"
@@ -33,6 +33,3 @@ __all__ = [
     "TokenizationError",
     "SmartChunker",
 ]
-
-
-

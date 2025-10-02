@@ -45,7 +45,7 @@ def demo_paragraph_chunking():
     
     chunks = chunker.chunk_by_paragraphs(text)
     
-    print(f"Original text has {len(text.split('\\n\\n'))} paragraphs")
+   # print(f"Original text has {len(text.split('\\n\\n'))} paragraphs")
     print(f"Number of chunks: {len(chunks)}")
     
     for i, chunk in enumerate(chunks, 1):

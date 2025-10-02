@@ -25,7 +25,7 @@ class TestSmartChunker:
         with pytest.raises(ValueError, match="max_tokens must be positive"):
             SmartChunker("gpt-4", max_tokens=-10)
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_by_sentences_short_text(self, mock_count_tokens):
         """Test sentence chunking for short text that fits in one chunk."""
         mock_count_tokens.return_value = 20  # Always under limit
@@ -36,7 +36,7 @@ class TestSmartChunker:
         assert "This is a short text." in chunks[0]
         assert mock_count_tokens.call_count > 0  # Multiple calls for incremental checks
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_by_sentences_long_text(self, mock_count_tokens):
         """Test sentence chunking for long text that spans multiple chunks."""
         calls = [0]
@@ -64,7 +64,7 @@ class TestSmartChunker:
         assert "Sentence three. Sentence four." in chunks[1]
         assert mock_count_tokens.call_count >= 5
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_by_sentences_empty_text(self, mock_count_tokens):
         """Test sentence chunking for empty text."""
         chunker = SmartChunker("gpt-4", max_tokens=50)
@@ -72,7 +72,7 @@ class TestSmartChunker:
         assert chunks == []
         mock_count_tokens.assert_not_called()
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_by_paragraphs_short_text(self, mock_count_tokens):
         """Test paragraph chunking for short text."""
         mock_count_tokens.return_value = 30
@@ -83,7 +83,7 @@ class TestSmartChunker:
         assert "\n\n" in chunks[0]
         assert mock_count_tokens.call_count > 0
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_by_paragraphs_long_text(self, mock_count_tokens):
         """Test paragraph chunking for text exceeding limit."""
         calls = [0]
@@ -110,7 +110,7 @@ class TestSmartChunker:
         assert "Para1\n\nPara2" in chunks[0]
         assert mock_count_tokens.call_count >= 5
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_by_paragraphs_empty(self, mock_count_tokens):
         """Test paragraph chunking for empty text."""
         chunker = SmartChunker("gpt-4", max_tokens=50)
@@ -118,7 +118,7 @@ class TestSmartChunker:
         assert chunks == []
         mock_count_tokens.assert_not_called()
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_code_python_short(self, mock_count_tokens):
         """Test code chunking for short Python code."""
         mock_count_tokens.return_value = 40
@@ -132,7 +132,7 @@ def hello():
         assert "def hello():" in chunks[0]
         assert mock_count_tokens.call_count > 0
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_code_python_long(self, mock_count_tokens):
         """Test code chunking for long Python splitting between functions."""
         calls = [0]
@@ -165,7 +165,7 @@ class Calculator:
         assert "class Calculator" in chunks[1]
         assert mock_count_tokens.call_count > 0
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_code_non_python_fallback(self, mock_count_tokens):
         """Test code chunking falls back to paragraphs for non-Python."""
         mock_count_tokens.return_value = 30
@@ -176,7 +176,7 @@ class Calculator:
         assert code in chunks[0]
         assert mock_count_tokens.call_count > 0
     
-    @patch('toksum.chunker.count_tokens')
+    @patch('toksum.core.count_tokens')
     def test_chunk_code_empty(self, mock_count_tokens):
         """Test code chunking for empty code."""
         chunker = SmartChunker("gpt-4", max_tokens=50)
