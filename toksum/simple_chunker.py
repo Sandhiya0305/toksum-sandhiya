@@ -18,8 +18,8 @@ class SimpleChunker:
     
     def chunk_text(self, text: str) -> List[str]:
         words = text.split()
-        chunks = []
-        current_chunk = []
+        chunks: List[str] = []
+        current_chunk: List[str] = []
         for word in words:
             test_chunk = ' '.join(current_chunk + [word])
             if count_tokens(test_chunk, self.model) <= self.max_tokens:
