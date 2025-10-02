@@ -50,7 +50,7 @@ class SmartChunker:
         if not sentences:
             return []
         
-        chunks = []
+        chunks: List[str] = []
         current_chunk = ""
         
         for sentence in sentences:
@@ -98,7 +98,7 @@ class SmartChunker:
         if not paragraphs:
             return []
         
-        chunks = []
+        chunks: List[str] = []
         current_chunk = ""
         
         for paragraph in paragraphs:
@@ -167,7 +167,7 @@ class SmartChunker:
         if not blocks:
             return []
         
-        chunks = []
+        chunks: List[str] = []
         current_chunk = ""
         
         for block in blocks:
@@ -219,8 +219,8 @@ class SmartChunker:
             List of code blocks
         """
         lines = code.strip().split('\n')
-        blocks = []
-        current_block_lines = []
+        blocks: List[str] = []
+        current_block_lines: List[str] = []
         
         i = 0
         while i < len(lines):
@@ -236,7 +236,7 @@ class SmartChunker:
                     current_block_lines = []
                 
                 # Collect the entire function or class definition
-                function_lines = [line]
+                function_lines: List[str] = [line]
                 i += 1
                 
                 # Get the indentation level of the function/class
