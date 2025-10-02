@@ -51,7 +51,7 @@ class SmartChunker:
             return []
         
         chunks: List[str] = []
-        current_chunk = ""
+        current_chunk: str = ""
         
         for sentence in sentences:
             # Try adding this sentence to current chunk
@@ -99,7 +99,7 @@ class SmartChunker:
             return []
         
         chunks: List[str] = []
-        current_chunk = ""
+        current_chunk: str = ""
         
         for paragraph in paragraphs:
             # Try adding this paragraph to current chunk
@@ -168,7 +168,7 @@ class SmartChunker:
             return []
         
         chunks: List[str] = []
-        current_chunk = ""
+        current_chunk: str = ""
         
         for block in blocks:
             if not current_chunk:
@@ -222,7 +222,7 @@ class SmartChunker:
         blocks: List[str] = []
         current_block_lines: List[str] = []
         
-        i = 0
+        i: int = 0
         while i < len(lines):
             line = lines[i]
             
@@ -240,7 +240,7 @@ class SmartChunker:
                 i += 1
                 
                 # Get the indentation level of the function/class
-                base_indent = len(line) - len(line.lstrip())
+                base_indent: int = len(line) - len(line.lstrip())
                 
                 # Collect all lines that belong to this function/class
                 while i < len(lines):
@@ -253,7 +253,7 @@ class SmartChunker:
                         continue
                     
                     # If it's indented more than the function/class, it belongs to it
-                    next_indent = len(next_line) - len(next_line.lstrip())
+                    next_indent: int = len(next_line) - len(next_line.lstrip())
                     if next_indent > base_indent:
                         function_lines.append(next_line)
                         i += 1
